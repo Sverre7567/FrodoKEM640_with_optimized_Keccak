@@ -4,7 +4,7 @@ import os
 import statistics
 
 BENCHMARKS_DIR = "./benchmarks"
-N_RUNS         = 100
+N_RUNS         = 25
 
 BINARIES = {
     "sw":   f"frodo640_sw_{OPT}",
@@ -192,4 +192,4 @@ for op_name, mk, sk in [
 
 log()
 log("Done.")
-_out_file.close()   
+_out_file.close()

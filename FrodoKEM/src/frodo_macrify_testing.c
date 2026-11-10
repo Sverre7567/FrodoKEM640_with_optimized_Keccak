@@ -29,14 +29,14 @@ int frodo_mul_add_as_plus_e(uint16_t *out, const uint16_t *s, const uint16_t *e,
         for (j = 0; j < PARAMS_N; j++) {
             A_row[j] = LE_TO_UINT16(A_row[j]);
         }
-        // for (j = 0; j < PARAMS_N; j++) {
-        //     for (k = 0; k < PARAMS_NBAR; k++)
-        //         s_col[k] = s[k*PARAMS_N + j];
-        //     for (k = 0; k < PARAMS_NBAR; k++)
-        //         out[i*PARAMS_NBAR + k] += A_row[j] * s_col[k];
-        // }
+        for (j = 0; j < PARAMS_N; j++) {
+            for (k = 0; k < PARAMS_NBAR; k++)
+                s_col[k] = s[k*PARAMS_N + j];
+            for (k = 0; k < PARAMS_NBAR; k++)
+                out[i*PARAMS_NBAR + k] += A_row[j] * s_col[k];
+        }
         //inner_mul_row(out + i*PARAMS_NBAR, s, A_row);
-        inner_mul_row_v2(out + i*PARAMS_NBAR, s, A_row);
+        //inner_mul_row_v2(out + i*PARAMS_NBAR, s, A_row);
         
     }
     return 1;
@@ -60,14 +60,14 @@ int frodo_mul_add_sa_plus_e(uint16_t *out, const uint16_t *s, uint16_t *e, const
             A_row[j] = LE_TO_UINT16(A_row[j]);
         }
         for (k = 0; k < PARAMS_NBAR; k++) {
-            // uint16_t s_prime = s[k*PARAMS_N + i];
-            // for (j = 0; j < PARAMS_N; j++) {
-            //     out[k*PARAMS_N + j] += s_prime * A_row[j];
-            uint16_t s_prime = s[k*PARAMS_N + i];
-            sa_mul_row(out + k*PARAMS_N, A_row, (uint16_t)s_prime);
-            }
+             uint16_t s_prime = s[k*PARAMS_N + i];
+             for (j = 0; j < PARAMS_N; j++) {
+                 out[k*PARAMS_N + j] += s_prime * A_row[j];
+	     }
+	     //uint16_t s_prime = s[k*PARAMS_N + i];
+             //sa_mul_row(out + k*PARAMS_N, A_row, (uint16_t)s_prime);
         }
-    
+    }
     return 1;
 }
 
