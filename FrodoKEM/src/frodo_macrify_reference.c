@@ -1,5 +1,3 @@
-#include <stdint.h>
-#include <string.h>
 /********************************************************************************************
 * FrodoKEM: Learning with Errors Key Encapsulation
 *
